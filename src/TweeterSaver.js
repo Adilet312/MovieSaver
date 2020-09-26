@@ -1,11 +1,11 @@
-import './css/Tabs.css';
+import './css/TweeterSaver.css';
 let elements = document.querySelectorAll('.blocks');
 let containers = document.querySelectorAll('.containers');
 elements.forEach(element => {
-  element.addEventListener('dragstart',function(e){
+  element.addEventListener('dragstart',function(){
     element.classList.add('dragging');
   })
-  element.addEventListener('dragend',function(e){
+  element.addEventListener('dragend',function(){
     element.classList.remove('dragging');
   })
 })

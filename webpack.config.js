@@ -5,7 +5,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 
 module.exports = {
-  entry: './src/Tabs.js',
+  entry: './src/TweeterSaver.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')
@@ -33,12 +33,22 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|jpe?g|svg)$/i,
+        test: /\.(png|jpe?g|jpg)$/i,
         use: [
           {
             loader: 'file-loader',
-          },
-        ],
+            options: {
+              name: '[name].[ext]',
+              outputPath: './assets/images/'
+            }
+          }
+        ]
+      },
+      {
+        test:/\.html$/,
+        use: [
+          'html-loader'
+        ]
       },
       {
         test: /\.js$/,
