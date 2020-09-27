@@ -1,8 +1,9 @@
+
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './src/TweeterSaver.js',
@@ -17,6 +18,7 @@ module.exports = {
   plugins: [
     new UglifyJsPlugin({ sourceMap: true }),
     new CleanWebpackPlugin(),
+    new Dotenv(),
     new HtmlWebpackPlugin({
       title: 'Tabs',
       template: './src/index.html',
@@ -26,11 +28,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.s[ac]ss$/i,
         use: [
           'style-loader',
-          'css-loader'
-        ]
+          'css-loader',
+          'sass-loader',
+        ],
       },
       {
         test: /\.(png|jpe?g|jpg)$/i,
