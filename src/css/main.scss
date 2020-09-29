@@ -1,27 +1,21 @@
 @import 'colors';
-@import 'container';
-html{
-  margin:0 auto;
+@import 'movies';
+body{
+  background: $primary;
 }
-main{
-  display: flex;
-  flex-direction: column;
-  justify-content:space-between;
+#searcharea{
+  margin: 0 auto;
+  text-align: center;
+  background: $bluedark;
+  padding: 10px;
+  width:30%;
+  border-radius: 10px;
+  outline: none;
 }
-
-.blocks{
-  width:300px;
-  background: $secondary;
-  height: 50px;
-  color:black;
-  padding: 0px;
-
+#searcharea p,#searcharea h1{
+  color:$secondary;
 }
-.blocks.dragging{
-  background: rgba(0, 0, 0, 0.5);
-}
-img{
-  position: absolute;
-
-  z-index: 1;
+#searcharea input{
+  width:80%;
+  text-align: center;
 }
