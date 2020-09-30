@@ -4,20 +4,31 @@ import './css/main.scss';
 
 const search = document.querySelector('#search');
 const outputDiv = document.querySelector('#output');
+const ul = document.createElement('ul');
 const searchMovies = async (title) =>{
   const url=`http://www.omdbapi.com/?s=${title}&page=1&apikey=${process.env.API_KEY}`;
   const response = await fetch(url);
   const movies = await response.json();
-  let result = movies.Search.filter( movie => {
-    let regex = new RegExp(`^${title}`,'gi');
-    return movie.Title.match(regex);
-  });
-  showMovies(result);
+  let results;
+  if(title.length>0){
+
+    results= movies.Search.filter( movie => {
+      let regex = new RegExp(`^${title}`,'gi');
+      return movie.Title.match(regex);
+    });
+  }
+  else{
+    results = [];
+    outputDiv.innerHTML = '';
+  }
+  showMovies(results);
+  console.log(results)
 }
+
 search.addEventListener('input',() => searchMovies(search.value));
 
 function showMovies(result){
-  let ul = document.createElement('ul');
+
   if(result.length > 0){
     let output  = result.map( movie =>`
       <li>
@@ -29,23 +40,27 @@ function showMovies(result){
     ul.innerHTML = output;
     outputDiv.appendChild(ul);
   }
-  else{
-    ul.innerHTML = '';
-  }
 }
-// function showMovies(result){
-//   result.forEach(movie =>{
-//     let li  = document.createElement('li');
-//     let h2  = document.createElement('h2');
-//     h2.innerText = movie.Title;
-//     let img = document.createElement('img');
-//     img.src = movie.Poster;
-//     li.appendChild(h2);
-//     li.appendChild(img);
-//     output.appendChild(li);
-//   })
-// }
+/*
+Calling API with AJAX
+let request = new XMLHttpRequest();
+function searchMovies(title){
+  const url=`http://www.omdbapi.com/?s=${title}&page=1&apikey=${process.env.API_KEY}`;
+  request.onreadystatechange = function(){
+    if(this.readyState===4 && this.status===200){
+      const response = JSON.parse(this.responseText);
+      const result = response.Search.filter( movie =>{
+            let regex = new RegExp(`^${title}`,'gi');
+            return movie.Title.match(regex);
+      });
 
+      title ? showMovies(result) : showMovies([]);
+    }
+  }
+  request.open('GET',url,true);
+  request.send();
+}
+*/
 
 
 

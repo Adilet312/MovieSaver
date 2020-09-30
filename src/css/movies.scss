@@ -17,6 +17,7 @@
   height:110px;
   overflow: hidden;
   border-bottom: 2px solid rgba(31, 45, 65, 0.03);;
+  transition: height .6s ease-out;
 }
 #output ul li:hover{
   min-height: 110px;
@@ -33,5 +34,6 @@
   color: grey;//$bluedark;
 }
 #output ul li p{
+  font-size: 16px;
   color: grey;
 }
