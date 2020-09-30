@@ -5,6 +5,8 @@ import './css/main.scss';
 const search = document.querySelector('#search');
 const outputDiv = document.querySelector('#output');
 const ul = document.createElement('ul');
+
+
 const searchMovies = async (title) =>{
   const url=`http://www.omdbapi.com/?s=${title}&page=1&apikey=${process.env.API_KEY}`;
   const response = await fetch(url);
@@ -22,7 +24,6 @@ const searchMovies = async (title) =>{
     outputDiv.innerHTML = '';
   }
   showMovies(results);
-  console.log(results)
 }
 
 search.addEventListener('input',() => searchMovies(search.value));
@@ -32,15 +33,44 @@ function showMovies(result){
   if(result.length > 0){
     let output  = result.map( movie =>`
       <li>
-        <h2>${movie.Title}</h2>
-        <img src="${movie.Poster}">
-        <p>Holiday movies offer us a glimpse into how the world is could be, often in sharp contrast to our lives as they are. In that way, the annual act of viewing them is like a religious ritual.</p>
+        <a href="#">
+          <img src="${movie.Poster}">
+          <span class="addTo">+</span>
+          <h4>${movie.Title}</h4>
+          <p>Holiday movies offer us a glimpse into how the world is could be, often in sharp contrast to our lives as they are. In that way, the annual act of viewing them is like a religious ritual.</p>
+        </a>
       </li>
     `).join('');
     ul.innerHTML = output;
     outputDiv.appendChild(ul);
   }
+  /*Add item into local storage*/
+  const item = document.querySelector('.addTo');
+  item.addEventListener('click',function(event){
+    const title = event.target.parentNode.children[2];
+    console.log("title",title.textContent);
+    localStorage.setItem('movieTitle',title.innerText);
+    const movieTitle = localStorage.getItem('movieTitle');
+    console.log(movieTitle)
+  })
 }
+
+
+
+
+/*indexDB*/
+/*window.onload = () =>{
+  let request = window.indexDB.open('movieDB',1);
+  request.onerror = function(){
+    console.log('DB is failed to open');
+  }
+  request.onsuccess = function(){
+    console.log('DB is  opened successfully');
+    request.result;
+  }
+}
+*/
+
 /*
 Calling API with AJAX
 let request = new XMLHttpRequest();

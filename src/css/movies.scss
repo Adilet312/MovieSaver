@@ -9,20 +9,36 @@
   margin: 0px;
   padding: 0px
 }
+#output ul li a{
+  text-decoration: none;
+}
+#output ul li a:hover{
+  background:rgba(0,0,0,.8);
+  .addTo{
+    opacity: 1;
+  }
+}
 #output ul li{
   width:100%;
   background: $secondary;
-  padding: 0 20px;
-  padding-bottom: 10px;
-  height:110px;
-  overflow: hidden;
-  border-bottom: 2px solid rgba(31, 45, 65, 0.03);;
-  transition: height .6s ease-out;
+  padding: 1em;
+  margin:0px;
+  height:180px;
+  border-bottom: 1px solid lightgrey;
+  position: relative;
 }
-#output ul li:hover{
-  min-height: 110px;
-  height: 200px;
-  overflow: visible;
+#output ul li .addTo{
+  opacity: 0;
+  color:black;
+  position: absolute;
+  top:10px;
+  right: 15px;
+  font-size: 20px;
+
+}
+#output ul li .addTo:hover{
+  opacity:1;
+
 }
 #output ul li img{
   float:left;
@@ -31,7 +47,7 @@
   border-radius: 10px;
 }
 #output ul li h2{
-  color: grey;//$bluedark;
+  color: grey;
 }
 #output ul li p{
   font-size: 16px;
