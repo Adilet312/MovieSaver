@@ -13,7 +13,7 @@ const searchMovies = async (title) =>{
   const movies = await response.json();
   let results;
   if(title.length>0){
-
+     console.log(movies.Search)
     results= movies.Search.filter( movie => {
       let regex = new RegExp(`^${title}`,'gi');
       return movie.Title.match(regex);
@@ -36,7 +36,7 @@ function showMovies(result){
         <a href="#">
           <img src="${movie.Poster}">
           <span class="addTo">+</span>
-          <h4>${movie.Title}</h4>
+          <h4 id="${movie.imdbID}">${movie.Title}</h4>
           <p>Holiday movies offer us a glimpse into how the world is could be, often in sharp contrast to our lives as they are. In that way, the annual act of viewing them is like a religious ritual.</p>
         </a>
       </li>
@@ -45,14 +45,24 @@ function showMovies(result){
     outputDiv.appendChild(ul);
   }
   /*Add item into local storage*/
-  const item = document.querySelector('.addTo');
-  item.addEventListener('click',function(event){
-    const title = event.target.parentNode.children[2];
-    console.log("title",title.textContent);
-    localStorage.setItem('movieTitle',title.innerText);
-    const movieTitle = localStorage.getItem('movieTitle');
-    console.log(movieTitle)
-  })
+  const items = document.querySelectorAll('.addTo');
+  for(let idx = 0; idx < items.length; idx++){
+    items[idx].addEventListener('click',function(event){
+      console.log(event.target)
+      if(event.target.className==='addTo'){
+        const title = event.target.parentNode.children[2];
+        let movieObj = {Title:title.innerText};
+        localStorage.setItem(`${title.id}`,JSON.stringify(movieObj));
+        const movieTitle = localStorage.getItem("key");
+        addItems(localStorage.length)
+      }
+    })
+  }
+
+}
+function addItems(items){
+  let basket = document.querySelector('.basket');
+  basket.innerText= items;
 }
 
 
